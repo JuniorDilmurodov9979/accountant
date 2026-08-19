@@ -1,0 +1,24 @@
+---
+interface Props {
+  t: any;
+}
+const { t } = Astro.props;
+---
+
+<section class="container-page py-16 sm:py-20" id="kalkulyatorlar">
+  <h2 class="text-2xl sm:text-3xl font-bold text-center mb-10">{t.calculators.title}</h2>
+  <div class="grid sm:grid-cols-3 gap-px bg-rule rule">
+    {
+      t.calculators.items.map((item: { title: string; text: string; href: string }) => (
+        <a
+          href={item.href}
+          class="bg-paper p-6 flex flex-col gap-3 hover:bg-rule/20 transition-colors"
+        >
+          <h3 class="font-display font-semibold text-lg">{item.title}</h3>
+          <p class="text-sm text-muted leading-relaxed flex-1">{item.text}</p>
+          <span class="text-sm text-ledger font-medium">→</span>
+        </a>
+      ))
+    }
+  </div>
+</section>

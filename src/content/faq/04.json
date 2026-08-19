@@ -1,0 +1,12 @@
+{
+  "order": 4,
+  "question": {
+    "ru": "Вы работаете один или есть команда?",
+    "uz": "Siz yolg'iz ishlaysizmi yoki jamoa bormi?"
+  },
+  "answer": {
+    "ru": "TODO_FAQ",
+    "uz": "TODO_FAQ"
+  },
+  "isTodo": true
+}

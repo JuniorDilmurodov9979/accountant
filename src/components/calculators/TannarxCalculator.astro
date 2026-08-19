@@ -1,0 +1,132 @@
+---
+interface Props {
+  t: any;
+}
+const { t } = Astro.props;
+const c = t.calcTannarx;
+---
+
+<div
+  data-tannarx-calc
+  data-config={JSON.stringify({
+    stageLabel: c.stage,
+    inputCostLabel: c.inputCost,
+    inputCostAutoLabel: c.inputCostAuto,
+    structureLabels: {
+      material: c.structureMaterial,
+      labor: c.structureLabor,
+      depreciation: c.structureDepreciation,
+      energy: c.structureEnergy,
+      overhead: c.structureOverhead,
+    },
+  })}
+>
+  <div data-stages class="grid gap-px bg-rule rule mb-4"></div>
+
+  <button
+    type="button"
+    data-add-stage
+    class="mb-10 px-4 py-2 text-sm border border-ledger text-ledger font-medium"
+  >
+    + {c.addStage}
+  </button>
+
+  <div class="rule p-6 sm:p-8">
+    <p class="text-sm text-muted mb-1">{c.result}</p>
+    <p data-final-result class="font-nums text-3xl sm:text-4xl text-ledger font-medium mb-8">0 сум</p>
+
+    <p class="text-sm text-muted mb-3">{c.structure}</p>
+    <div data-structure class="space-y-2"></div>
+  </div>
+
+  <template data-stage-template>
+    <div class="bg-paper p-5 sm:p-6" data-stage-card>
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-display font-semibold" data-stage-title></h3>
+        <button type="button" data-remove-stage class="text-xs text-muted hover:text-flag">
+          {c.removeStage}
+        </button>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <label class="grid gap-1 text-sm" data-input-cost-wrap>
+          <span class="text-muted" data-input-cost-label></span>
+          <input
+            type="number"
+            min="0"
+            step="any"
+            data-field="inputCost"
+            class="rule px-3 py-2 bg-paper font-nums focus:outline-none focus:border-ledger"
+          />
+        </label>
+        <label class="grid gap-1 text-sm">
+          <span class="text-muted">{c.wasteNorm}</span>
+          <input
+            type="number"
+            min="0"
+            max="95"
+            step="any"
+            value="0"
+            data-field="wasteNorm"
+            class="rule px-3 py-2 bg-paper font-nums focus:outline-none focus:border-ledger"
+          />
+        </label>
+        <label class="grid gap-1 text-sm">
+          <span class="text-muted">{c.laborCost}</span>
+          <input
+            type="number"
+            min="0"
+            step="any"
+            value="0"
+            data-field="laborCost"
+            class="rule px-3 py-2 bg-paper font-nums focus:outline-none focus:border-ledger"
+          />
+        </label>
+        <label class="grid gap-1 text-sm">
+          <span class="text-muted">{c.depreciation}</span>
+          <input
+            type="number"
+            min="0"
+            step="any"
+            value="0"
+            data-field="depreciation"
+            class="rule px-3 py-2 bg-paper font-nums focus:outline-none focus:border-ledger"
+          />
+        </label>
+        <label class="grid gap-1 text-sm">
+          <span class="text-muted">{c.energy}</span>
+          <input
+            type="number"
+            min="0"
+            step="any"
+            value="0"
+            data-field="energy"
+            class="rule px-3 py-2 bg-paper font-nums focus:outline-none focus:border-ledger"
+          />
+        </label>
+        <label class="grid gap-1 text-sm">
+          <span class="text-muted">{c.overhead}</span>
+          <input
+            type="number"
+            min="0"
+            step="any"
+            value="0"
+            data-field="overhead"
+            class="rule px-3 py-2 bg-paper font-nums focus:outline-none focus:border-ledger"
+          />
+        </label>
+      </div>
+      <p class="mt-4 text-sm text-muted">
+        {c.outputCost}: <span class="font-nums text-ink" data-stage-output>0</span>
+      </p>
+    </div>
+  </template>
+</div>
+
+<script>
+  import { initTannarxCalculator } from '../../scripts/tannarx-ui';
+
+  document.querySelectorAll<HTMLElement>('[data-tannarx-calc]').forEach((el) => {
+    const config = JSON.parse(el.dataset.config ?? '{}');
+    initTannarxCalculator(el, config);
+  });
+</script>

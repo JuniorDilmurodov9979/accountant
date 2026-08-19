@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LeadForm from '../../components/LeadForm.astro';
+import { useTranslations } from '../../i18n';
+
+const lang = 'uz' as const;
+const t = useTranslations(lang);
+
+const title = "Chek-list: soliq tekshiruviga tayyorligingiz — bepul yuklab oling";
+const description = "Soliq inspektori tashrifidan oldin o'z-o'zini tekshirish uchun bepul chek-list.";
+---
+
+<BaseLayout title={title} description={description} path="/chek-list">
+  <div class="container-page py-12 sm:py-16">
+    <div class="container-prose mx-auto">
+      <h1 class="text-2xl sm:text-3xl font-bold mb-4">
+        Chek-list: soliq tekshiruviga tayyorlik
+      </h1>
+      <p class="text-muted leading-relaxed mb-10">
+        Telefon raqamingizni qoldiring — PDF chek-listni Telegramda yuboraman: inspektor birinchi
+        navbatda nimani tekshiradi va oldindan qanday tayyorlanish kerak.
+      </p>
+      <div class="rule p-6 sm:p-8">
+        <LeadForm t={t} compact={true} />
+      </div>
+      <p class="text-xs text-muted mt-8">{t.calcCommon.disclaimer}</p>
+    </div>
+  </div>
+</BaseLayout>

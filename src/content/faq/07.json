@@ -1,0 +1,12 @@
+{
+  "order": 7,
+  "question": {
+    "ru": "Что если у нас вообще нет 1С?",
+    "uz": "Agar bizda 1C umuman bo'lmasa-chi?"
+  },
+  "answer": {
+    "ru": "TODO_FAQ",
+    "uz": "TODO_FAQ"
+  },
+  "isTodo": true
+}

@@ -1,0 +1,12 @@
+---
+import CalculatorLayout from '../../../layouts/CalculatorLayout.astro';
+import IshHaqiCalculator from '../../../components/calculators/IshHaqiCalculator.astro';
+import { useTranslations } from '../../../i18n';
+
+const lang = 'uz' as const;
+const t = useTranslations(lang);
+---
+
+<CalculatorLayout t={t} path="/kalkulyator/ish-haqi" title={t.calcIshHaqi.title} intro={t.calcIshHaqi.intro}>
+  <IshHaqiCalculator t={t} />
+</CalculatorLayout>

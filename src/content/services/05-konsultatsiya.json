@@ -1,0 +1,16 @@
+{
+  "order": 5,
+  "title": {
+    "ru": "Консультация главного бухгалтера",
+    "uz": "Bosh buxgalter konsultatsiyasi"
+  },
+  "description": {
+    "ru": "Разовые вопросы: спорная операция, льгота, оптимизация налоговой нагрузки.",
+    "uz": "Bir martalik savollar: bahsli operatsiya, imtiyoz, soliq yukini optimallashtirish."
+  },
+  "priceLabel": {
+    "ru": "500 000 сум/час",
+    "uz": "500 000 so'm/soat"
+  },
+  "priceConfirmed": false
+}

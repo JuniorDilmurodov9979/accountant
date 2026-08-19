@@ -1,0 +1,16 @@
+{
+  "order": 1,
+  "title": {
+    "ru": "Полный аутсорсинг бухгалтерии",
+    "uz": "Buxgalteriyaning to'liq autsorsingi"
+  },
+  "description": {
+    "ru": "Ведение учёта, отчётность, зарплата, банк-клиент, ЭСФ. Вы получаете главбуха уровня крупного предприятия без зарплаты главбуха.",
+    "uz": "Hisobni yuritish, hisobot, ish haqi, bank-mijoz, ESF. Siz yirik korxona darajasidagi bosh buxgalterni, uning maoshisiz olasiz."
+  },
+  "priceLabel": {
+    "ru": "от 5 млн сум/мес",
+    "uz": "5 mln so'mdan/oy"
+  },
+  "priceConfirmed": false
+}

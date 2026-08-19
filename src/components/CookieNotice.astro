@@ -1,0 +1,32 @@
+---
+interface Props {
+  lang: 'ru' | 'uz';
+}
+const { lang } = Astro.props;
+
+const text =
+  lang === 'ru'
+    ? 'Сайт использует счётчики посещаемости (Яндекс.Метрика) для аналитики.'
+    : "Sayt tashrif hisoblagichlaridan (Yandex.Metrika) analitika uchun foydalanadi.";
+const close = lang === 'ru' ? 'Понятно' : 'Tushunarli';
+---
+
+<div
+  data-cookie-notice
+  class="hidden fixed bottom-16 md:bottom-4 inset-x-4 sm:inset-x-auto sm:right-4 sm:max-w-sm z-50 rule bg-paper p-4 text-xs text-muted flex items-start gap-3"
+>
+  <p class="flex-1">{text}</p>
+  <button type="button" data-cookie-close class="text-ink font-medium underline shrink-0">{close}</button>
+</div>
+
+<script>
+  const KEY = 'cookie-notice-dismissed';
+  const el = document.querySelector<HTMLElement>('[data-cookie-notice]');
+  if (el && !localStorage.getItem(KEY)) {
+    el.classList.remove('hidden');
+  }
+  document.querySelector('[data-cookie-close]')?.addEventListener('click', () => {
+    localStorage.setItem(KEY, '1');
+    el?.classList.add('hidden');
+  });
+</script>

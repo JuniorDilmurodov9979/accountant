@@ -1,0 +1,17 @@
+---
+interface Props {
+  t: any;
+}
+const { t } = Astro.props;
+---
+
+<section class="container-page py-16 sm:py-20">
+  <h2 class="text-2xl sm:text-3xl font-bold text-center mb-10">{t.problem.title}</h2>
+  <ul class="container-prose mx-auto space-y-5">
+    {
+      t.problem.items.map((item: string) => (
+        <li class="rule-t pt-5 text-base sm:text-lg leading-snug">{item}</li>
+      ))
+    }
+  </ul>
+</section>

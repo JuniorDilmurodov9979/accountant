@@ -1,0 +1,36 @@
+---
+import { localizePath, type Locale } from '../i18n';
+
+interface Props {
+  lang: Locale;
+  t: any;
+  path: string;
+}
+
+const { lang, t, path } = Astro.props;
+const otherLang: Locale = lang === 'ru' ? 'uz' : 'ru';
+const switchHref = localizePath(path, otherLang);
+const homeHref = localizePath('/', lang);
+---
+
+<header class="rule-b sticky top-0 z-40 bg-paper/95 backdrop-blur-sm">
+  <div class="container-page flex items-center justify-between h-16">
+    <a href={homeHref} class="font-display font-bold text-base sm:text-lg tracking-tight">
+      Х. Н. Дилмуродович
+    </a>
+    <nav class="flex items-center gap-4 sm:gap-6 text-sm">
+      <a href={`${homeHref}#kalkulyatorlar`} class="hidden sm:inline text-muted hover:text-ink">
+        {t.nav.calculators}
+      </a>
+      <a href={`${homeHref}#kontakt`} class="hidden sm:inline text-muted hover:text-ink">
+        {t.nav.contact}
+      </a>
+      <a
+        href={switchHref}
+        class="font-nums text-xs px-2 py-1 rule text-muted hover:text-ink hover:border-ink"
+      >
+        {otherLang.toUpperCase()}
+      </a>
+    </nav>
+  </div>
+</header>

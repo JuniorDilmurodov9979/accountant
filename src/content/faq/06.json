@@ -1,0 +1,12 @@
+{
+  "order": 6,
+  "question": {
+    "ru": "Работаете ли вы с предприятиями на НДС?",
+    "uz": "QQS to'lovchi korxonalar bilan ishlaysizmi?"
+  },
+  "answer": {
+    "ru": "TODO_FAQ",
+    "uz": "TODO_FAQ"
+  },
+  "isTodo": true
+}

@@ -1,0 +1,103 @@
+---
+import '../styles/global.css';
+import { getLangFromUrl, useTranslations, localizePath } from '../i18n';
+import StickyContact from '../components/StickyContact.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import CookieNotice from '../components/CookieNotice.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string; // path without locale prefix, e.g. "/" or "/kalkulyator/tannarx"
+}
+
+const { title, description, path } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const ruPath = localizePath(path, 'ru');
+const uzPath = localizePath(path, 'uz');
+const canonical = new URL(localizePath(path, lang), Astro.site);
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="ru" href={new URL(ruPath, Astro.site)} />
+    <link rel="alternate" hreflang="uz" href={new URL(uzPath, Astro.site)} />
+    <link rel="alternate" hreflang="x-default" href={new URL(ruPath, Astro.site)} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <!-- TODO_OG: /og-ru.jpg va /og-uz.jpg (1200x630) qo'yilgach shu qatorni yangilang -->
+    <meta property="og:image" content={new URL('/og-placeholder.svg', Astro.site)} />
+    <meta property="og:locale" content={lang === 'ru' ? 'ru_RU' : 'uz_UZ'} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Onest:wght@600;700&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: t.about.name,
+        jobTitle: t.about.role,
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Навои',
+          addressCountry: 'UZ',
+        },
+      })}
+    />
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'AccountingService',
+        name: t.about.name,
+        areaServed: 'Навоийская область, Узбекистан',
+        priceRange: '$$',
+      })}
+    />
+
+    <!--
+      TODO_ANALYTICS: Yandex Metrika счётчик ID qo'yilsin.
+      Standart snippet (webvisor bilan), TODO_METRIKA_ID o'rniga haqiqiy ID kiritilgach izohdan chiqariladi:
+
+      <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+        ym(TODO_METRIKA_ID, "init", { webvisor: true, clickmap: true, accurateTrackBounce: true });
+      </script>
+    -->
+  </head>
+  <body class="min-h-screen flex flex-col bg-paper text-ink">
+    <SiteHeader lang={lang} t={t} path={path} />
+    <main class="flex-1 pb-20 md:pb-0">
+      <slot />
+    </main>
+    <SiteFooter lang={lang} t={t} />
+    <StickyContact t={t} />
+    <CookieNotice lang={lang} />
+  </body>
+</html>

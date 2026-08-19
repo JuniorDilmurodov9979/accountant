@@ -1,0 +1,12 @@
+{
+  "order": 5,
+  "question": {
+    "ru": "Можно ли начать с одного проекта, а не с постоянного обслуживания?",
+    "uz": "Doimiy xizmat emas, bitta loyihadan boshlash mumkinmi?"
+  },
+  "answer": {
+    "ru": "TODO_FAQ",
+    "uz": "TODO_FAQ"
+  },
+  "isTodo": true
+}

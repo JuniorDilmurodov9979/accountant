@@ -1,0 +1,12 @@
+{
+  "order": 8,
+  "question": {
+    "ru": "Сколько предприятий вы ведёте одновременно?",
+    "uz": "Bir vaqtning o'zida nechta korxonani yuritasiz?"
+  },
+  "answer": {
+    "ru": "TODO_FAQ",
+    "uz": "TODO_FAQ"
+  },
+  "isTodo": true
+}

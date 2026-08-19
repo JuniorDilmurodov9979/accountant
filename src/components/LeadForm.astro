@@ -1,0 +1,107 @@
+---
+interface Props {
+  t: any;
+  serviceOptions?: string[];
+  compact?: boolean;
+}
+const { t, serviceOptions, compact = false } = Astro.props;
+---
+
+<form data-lead-form class="grid gap-4" novalidate>
+  <div class="hidden" aria-hidden="true">
+    <label>Company website<input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+  </div>
+
+  <div class="grid sm:grid-cols-2 gap-4">
+    <label class="grid gap-1 text-sm">
+      <span class="text-muted">{t.contact.formName} *</span>
+      <input
+        type="text"
+        name="name"
+        required
+        class="rule px-3 py-2 bg-paper focus:outline-none focus:border-ledger"
+      />
+    </label>
+    <label class="grid gap-1 text-sm">
+      <span class="text-muted">{t.contact.formPhone} *</span>
+      <input
+        type="tel"
+        name="phone"
+        required
+        placeholder="+998 XX XXX-XX-XX"
+        class="rule px-3 py-2 bg-paper font-nums focus:outline-none focus:border-ledger"
+      />
+    </label>
+  </div>
+
+  {
+    !compact && (
+      <div class="grid sm:grid-cols-2 gap-4">
+        <label class="grid gap-1 text-sm">
+          <span class="text-muted">{t.contact.formCompany}</span>
+          <input type="text" name="company" class="rule px-3 py-2 bg-paper focus:outline-none focus:border-ledger" />
+        </label>
+        <label class="grid gap-1 text-sm">
+          <span class="text-muted">{t.contact.formService}</span>
+          <select name="service" class="rule px-3 py-2 bg-paper focus:outline-none focus:border-ledger">
+            <option value=""></option>
+            {(serviceOptions ?? []).map((s) => (
+              <option value={s}>{s}</option>
+            ))}
+          </select>
+        </label>
+      </div>
+    )
+  }
+
+  {
+    !compact && (
+      <label class="grid gap-1 text-sm">
+        <span class="text-muted">{t.contact.formMessage}</span>
+        <textarea name="message" rows="3" class="rule px-3 py-2 bg-paper focus:outline-none focus:border-ledger" />
+      </label>
+    )
+  }
+
+  <input type="hidden" name="page" value={Astro.url.pathname} />
+
+  <button
+    type="submit"
+    class="justify-self-start px-6 py-3 bg-ledger text-paper font-medium text-sm disabled:opacity-50"
+  >
+    {t.contact.formSubmit}
+  </button>
+
+  <p data-lead-status class="text-sm hidden"></p>
+</form>
+
+<script define:vars={{ successMessage: t.contact.formSuccess, errorMessage: t.contact.formError }} is:inline>
+  document.querySelectorAll('[data-lead-form]').forEach((form) => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const status = form.querySelector('[data-lead-status]');
+      const button = form.querySelector('button[type="submit"]');
+      const data = Object.fromEntries(new FormData(form).entries());
+
+      button.disabled = true;
+      try {
+        const res = await fetch('/api/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        if (!res.ok) throw new Error('bad response');
+        status.textContent = successMessage;
+        status.classList.remove('hidden');
+        status.classList.add('text-ledger');
+        form.reset();
+      } catch (err) {
+        status.textContent = errorMessage;
+        status.classList.remove('hidden');
+        status.classList.add('text-flag');
+      } finally {
+        button.disabled = false;
+      }
+    });
+  });
+</script>

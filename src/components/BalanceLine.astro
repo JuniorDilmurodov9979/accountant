@@ -1,0 +1,50 @@
+---
+interface Props {
+  t: any;
+}
+const { t } = Astro.props;
+---
+
+<section class="rule-t rule-b" data-balance-line>
+  <div class="container-page">
+    {
+      t.stats.rows.map((row: { left: string; value: string; right: string }, i: number) => (
+        <div
+          class:list={[
+            'grid grid-cols-[1fr_auto_1fr] items-center gap-3 sm:gap-6 py-5 sm:py-7 opacity-0 translate-y-2',
+            { 'rule-t': i > 0 },
+          ]}
+          data-balance-row
+          style={`transition: opacity 400ms ease, transform 400ms ease; transition-delay: ${i * 60}ms;`}
+        >
+          <p class="text-right sm:text-right text-xs sm:text-base text-muted leading-snug">{row.left}</p>
+          <p class="font-nums text-2xl sm:text-4xl font-medium text-ledger px-2 sm:px-4 text-center">
+            {row.value}
+          </p>
+          <p class="text-left text-xs sm:text-base text-ink leading-snug">{row.right}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<script>
+  const lines = document.querySelectorAll('[data-balance-line]');
+  lines.forEach((line) => {
+    const rows = line.querySelectorAll('[data-balance-row]');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            rows.forEach((row) => {
+              row.classList.remove('opacity-0', 'translate-y-2');
+            });
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(line);
+  });
+</script>

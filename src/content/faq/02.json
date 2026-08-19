@@ -1,0 +1,12 @@
+{
+  "order": 2,
+  "question": {
+    "ru": "Кто несёт ответственность, если налоговая доначислит?",
+    "uz": "Soliq qo'shimcha to'lov belgilasa, kim javobgar bo'ladi?"
+  },
+  "answer": {
+    "ru": "TODO_FAQ",
+    "uz": "TODO_FAQ"
+  },
+  "isTodo": true
+}

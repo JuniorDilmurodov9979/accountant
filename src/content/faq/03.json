@@ -1,0 +1,12 @@
+{
+  "order": 3,
+  "question": {
+    "ru": "Как передаются документы — бумага, Telegram, DIDOX?",
+    "uz": "Hujjatlar qanday uzatiladi — qog'oz, Telegram, DIDOX?"
+  },
+  "answer": {
+    "ru": "TODO_FAQ",
+    "uz": "TODO_FAQ"
+  },
+  "isTodo": true
+}

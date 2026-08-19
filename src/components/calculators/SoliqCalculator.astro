@@ -1,0 +1,118 @@
+---
+import taxRates from '../../data/tax-rates.json';
+
+interface Props {
+  t: any;
+}
+const { t } = Astro.props;
+const c = t.calcSoliq;
+---
+
+<div
+  data-soliq-calc
+  data-rates={JSON.stringify(taxRates)}
+  data-labels={JSON.stringify({
+    turnoverRegime: c.turnoverRegime,
+    generalRegime: c.generalRegime,
+    totalTax: c.totalTax,
+    effectiveRate: c.effectiveRate,
+  })}
+>
+  <p class="text-xs text-muted mb-6 font-nums">
+    {t.calcCommon.ratesNote} {taxRates.asOfDate}
+  </p>
+
+  <div class="grid sm:grid-cols-3 gap-4 mb-10">
+    <label class="grid gap-1 text-sm">
+      <span class="text-muted">{c.turnover}</span>
+      <input
+        type="number"
+        min="0"
+        step="any"
+        value="1000000000"
+        data-field="turnover"
+        class="rule px-3 py-2 bg-paper font-nums focus:outline-none focus:border-ledger"
+      />
+    </label>
+    <label class="grid gap-1 text-sm">
+      <span class="text-muted">{c.expenseVatShare}</span>
+      <input
+        type="number"
+        min="0"
+        max="100"
+        step="any"
+        value="50"
+        data-field="expenseVatShare"
+        class="rule px-3 py-2 bg-paper font-nums focus:outline-none focus:border-ledger"
+      />
+    </label>
+    <label class="grid gap-1 text-sm">
+      <span class="text-muted">{c.employees}</span>
+      <input
+        type="number"
+        min="0"
+        step="1"
+        value="10"
+        data-field="employees"
+        class="rule px-3 py-2 bg-paper font-nums focus:outline-none focus:border-ledger"
+      />
+    </label>
+  </div>
+
+  <div class="grid sm:grid-cols-2 gap-px bg-rule rule">
+    <div class="bg-paper p-6">
+      <h3 class="font-display font-semibold mb-4">{c.turnoverRegime}</h3>
+      <p class="text-sm text-muted mb-1">{c.totalTax}</p>
+      <p data-turnover-tax class="font-nums text-2xl text-ledger font-medium mb-2">0</p>
+      <p class="text-sm text-muted">
+        {c.effectiveRate}: <span data-turnover-rate class="font-nums text-ink">0%</span>
+      </p>
+    </div>
+    <div class="bg-paper p-6">
+      <h3 class="font-display font-semibold mb-4">{c.generalRegime}</h3>
+      <p class="text-sm text-muted mb-1">{c.totalTax}</p>
+      <p data-general-tax class="font-nums text-2xl text-ledger font-medium mb-2">0</p>
+      <p class="text-sm text-muted">
+        {c.effectiveRate}: <span data-general-rate class="font-nums text-ink">0%</span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { computeGeneralRegime, computeTurnoverRegime } from '../../scripts/soliq';
+
+  const numberFormat = new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 0 });
+  const fmt = (n: number) => (Number.isFinite(n) ? `${numberFormat.format(Math.round(n))} сум` : '— (TODO_RATE)');
+  const fmtPct = (n: number) => (Number.isFinite(n) ? `${n.toFixed(1)}%` : '—');
+
+  document.querySelectorAll<HTMLElement>('[data-soliq-calc]').forEach((root) => {
+    const rates = JSON.parse(root.dataset.rates ?? '{}');
+
+    function readInputs() {
+      const get = (field: string) => {
+        const input = root.querySelector<HTMLInputElement>(`[data-field="${field}"]`);
+        return input ? Number(input.value) || 0 : 0;
+      };
+      return {
+        turnover: get('turnover'),
+        expenseVatShare: get('expenseVatShare'),
+        employees: get('employees'),
+      };
+    }
+
+    function recalc() {
+      const input = readInputs();
+      const turnoverResult = computeTurnoverRegime(input, rates);
+      const generalResult = computeGeneralRegime(input, rates);
+
+      root.querySelector('[data-turnover-tax]')!.textContent = fmt(turnoverResult.tax);
+      root.querySelector('[data-turnover-rate]')!.textContent = fmtPct(turnoverResult.effectiveRate);
+      root.querySelector('[data-general-tax]')!.textContent = fmt(generalResult.tax);
+      root.querySelector('[data-general-rate]')!.textContent = fmtPct(generalResult.effectiveRate);
+    }
+
+    root.addEventListener('input', recalc);
+    recalc();
+  });
+</script>

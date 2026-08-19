@@ -1,0 +1,16 @@
+{
+  "order": 4,
+  "title": {
+    "ru": "Восстановление учёта «с нуля»",
+    "uz": "Hisobni «noldan» tiklash"
+  },
+  "description": {
+    "ru": "Учёт запущен или потерян — восстанавливаем базу, приводим в порядок остатки, формируем учётную политику.",
+    "uz": "Hisob ishlamayapti yoki yo'qolgan — bazani tiklaymiz, qoldiqlarni tartibga solamiz, hisob siyosatini shakllantiramiz."
+  },
+  "priceLabel": {
+    "ru": "по объёму",
+    "uz": "hajmiga qarab"
+  },
+  "priceConfirmed": false
+}

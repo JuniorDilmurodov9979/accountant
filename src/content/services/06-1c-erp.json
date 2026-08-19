@@ -1,0 +1,16 @@
+{
+  "order": 6,
+  "title": {
+    "ru": "Внедрение 1С:ERP / постановка ТЗ",
+    "uz": "1C:ERP joriy etish / TZ tuzish"
+  },
+  "description": {
+    "ru": "Написание технического задания и контроль подрядчика со стороны бухгалтерии, а не программистов.",
+    "uz": "Texnik topshiriqni yozish va pudratchini dasturchilar emas, buxgalteriya tomonidan nazorat qilish."
+  },
+  "priceLabel": {
+    "ru": "по проекту",
+    "uz": "loyihaga qarab"
+  },
+  "priceConfirmed": false
+}

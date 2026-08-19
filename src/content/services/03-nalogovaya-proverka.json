@@ -1,0 +1,16 @@
+{
+  "order": 3,
+  "title": {
+    "ru": "Подготовка к налоговой проверке",
+    "uz": "Soliq tekshiruviga tayyorgarlik"
+  },
+  "description": {
+    "ru": "Аудит документов до прихода инспектора. Устраняем то, что станет доначислением.",
+    "uz": "Inspektor kelishidan oldin hujjatlar auditi. Qo'shimcha to'lovga sabab bo'ladigan narsalarni bartaraf etamiz."
+  },
+  "priceLabel": {
+    "ru": "от 6 млн сум",
+    "uz": "6 mln so'mdan"
+  },
+  "priceConfirmed": false
+}

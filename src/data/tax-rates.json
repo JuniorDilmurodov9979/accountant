@@ -1,0 +1,32 @@
+{
+  "_comment": "TODO: barcha stavkalar mijoz tomonidan tasdiqlanishi shart. Claude Code bu qiymatlarni o'ylab topmadi.",
+  "asOfDate": "TODO_DATE",
+  "turnoverTax": {
+    "rate": "TODO_RATE",
+    "note": "Aylanma solig'i stavkasi (%), aylanma chegarasiga qarab farqlanishi mumkin — mijozdan aniqlashtirilsin"
+  },
+  "vat": {
+    "rate": "TODO_RATE",
+    "note": "QQS stavkasi (%)"
+  },
+  "profitTax": {
+    "rate": "TODO_RATE",
+    "note": "Foyda solig'i stavkasi (%)"
+  },
+  "incomeTax": {
+    "rate": "TODO_RATE",
+    "note": "Jismoniy shaxslar daromad solig'i stavkasi (%)"
+  },
+  "socialTax": {
+    "rate": "TODO_RATE",
+    "note": "Ijtimoiy soliq stavkasi (%)"
+  },
+  "inps": {
+    "rate": "TODO_RATE",
+    "note": "INPS ajratmasi stavkasi (%)"
+  },
+  "vatRegistrationThreshold": {
+    "value": "TODO_VALUE",
+    "note": "QQS to'lovchisi bo'lish uchun majburiy aylanma chegarasi (so'm)"
+  }
+}

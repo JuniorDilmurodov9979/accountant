@@ -1,0 +1,9 @@
+name = "buxgalter-navoiy"
+compatibility_date = "2024-11-01"
+pages_build_output_dir = "dist"
+
+# TODO_KV: Ariza (lead) so'rovlari uchun rate-limit ishlatmoqchi bo'lsangiz,
+# Cloudflare dashboard'da KV namespace yarating va shu yerga bog'lang:
+# [[kv_namespaces]]
+# binding = "LEAD_RATE_LIMIT"
+# id = "TODO_KV_NAMESPACE_ID"

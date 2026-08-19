@@ -1,0 +1,12 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+import TannarxCalculator from '../../components/calculators/TannarxCalculator.astro';
+import { useTranslations } from '../../i18n';
+
+const lang = 'ru' as const;
+const t = useTranslations(lang);
+---
+
+<CalculatorLayout t={t} path="/kalkulyator/tannarx" title={t.calcTannarx.title} intro={t.calcTannarx.intro}>
+  <TannarxCalculator t={t} />
+</CalculatorLayout>

@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #12181d;
+  --color-paper: #fbfaf7;
+  --color-rule: #dcddd6;
+  --color-ledger: #1e5240;
+  --color-flag: #b4531a;
+  --color-muted: #6c7378;
+
+  --font-display: "Onest", "Golos Text", "Inter", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 2px;
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
+  .font-nums {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  ::selection {
+    background-color: var(--color-ledger);
+    color: var(--color-paper);
+  }
+}
+
+@layer utilities {
+  .container-page {
+    max-width: 1120px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  .container-prose {
+    max-width: 680px;
+  }
+
+  .rule-t {
+    border-top: 1px solid var(--color-rule);
+  }
+  .rule-b {
+    border-bottom: 1px solid var(--color-rule);
+  }
+  .rule {
+    border: 1px solid var(--color-rule);
+  }
+}

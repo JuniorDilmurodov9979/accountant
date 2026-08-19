@@ -1,0 +1,16 @@
+{
+  "order": 2,
+  "title": {
+    "ru": "Расчёт и постановка себестоимости",
+    "uz": "Tannarxni hisoblash va joriy etish"
+  },
+  "description": {
+    "ru": "Построение калькуляции по переделам: сырьё → полуфабрикат → готовая продукция. Вы видите, где теряются деньги.",
+    "uz": "Peredellar bo'yicha kalkulyatsiya qurish: xom ashyo → yarim tayyor mahsulot → tayyor mahsulot. Pul qayerda yo'qolayotganini ko'rasiz."
+  },
+  "priceLabel": {
+    "ru": "от 8 млн сум, проект",
+    "uz": "8 mln so'mdan, loyiha"
+  },
+  "priceConfirmed": false
+}

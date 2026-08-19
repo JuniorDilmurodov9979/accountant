@@ -1,0 +1,24 @@
+---
+import { site } from '../data/site';
+interface Props {
+  t: any;
+}
+const { t } = Astro.props;
+---
+
+<div class="md:hidden fixed bottom-0 inset-x-0 z-50 rule-t bg-paper">
+  <div class="grid grid-cols-2">
+    <a
+      href={site.phoneHref}
+      class="flex items-center justify-center gap-2 py-3 text-sm font-medium text-ink border-r border-rule"
+    >
+      {t.contact.phone}
+    </a>
+    <a
+      href={site.telegramHref}
+      class="flex items-center justify-center gap-2 py-3 text-sm font-medium bg-ledger text-paper"
+    >
+      {t.contact.telegram}
+    </a>
+  </div>
+</div>

@@ -1,0 +1,106 @@
+---
+import taxRates from '../../data/tax-rates.json';
+
+interface Props {
+  t: any;
+}
+const { t } = Astro.props;
+const c = t.calcIshHaqi;
+---
+
+<div
+  data-ishhaqi-calc
+  data-rates={JSON.stringify(taxRates)}
+  data-labels={JSON.stringify({
+    net: c.net,
+    gross: c.gross,
+    incomeTax: c.incomeTax,
+    inps: c.inps,
+    socialTax: c.socialTax,
+    fullCost: c.fullCost,
+  })}
+>
+  <p class="text-xs text-muted mb-6 font-nums">
+    {t.calcCommon.ratesNote} {taxRates.asOfDate}
+  </p>
+
+  <div class="grid sm:grid-cols-[1fr_auto] gap-4 items-end mb-10">
+    <label class="grid gap-1 text-sm">
+      <span class="text-muted" data-amount-label>{c.amount}</span>
+      <input
+        type="number"
+        min="0"
+        step="any"
+        value="5000000"
+        data-field="amount"
+        class="rule px-3 py-2 bg-paper font-nums focus:outline-none focus:border-ledger"
+      />
+    </label>
+    <select
+      data-field="direction"
+      class="rule px-3 py-2 bg-paper text-sm focus:outline-none focus:border-ledger"
+    >
+      <option value="net">{c.directionNet}</option>
+      <option value="gross">{c.directionGross}</option>
+      <option value="full">{c.directionFull}</option>
+    </select>
+  </div>
+
+  <div class="grid gap-px bg-rule rule">
+    <div class="bg-paper p-4 flex justify-between">
+      <span class="text-sm">{c.net}</span>
+      <span data-out-net class="font-nums">0</span>
+    </div>
+    <div class="bg-paper p-4 flex justify-between text-muted">
+      <span class="text-sm">{c.incomeTax}</span>
+      <span data-out-income-tax class="font-nums">0</span>
+    </div>
+    <div class="bg-paper p-4 flex justify-between text-muted">
+      <span class="text-sm">{c.inps}</span>
+      <span data-out-inps class="font-nums">0</span>
+    </div>
+    <div class="bg-paper p-4 flex justify-between">
+      <span class="text-sm">{c.gross}</span>
+      <span data-out-gross class="font-nums">0</span>
+    </div>
+    <div class="bg-paper p-4 flex justify-between text-muted">
+      <span class="text-sm">{c.socialTax}</span>
+      <span data-out-social-tax class="font-nums">0</span>
+    </div>
+    <div class="bg-paper p-4 flex justify-between font-medium">
+      <span class="text-sm">{c.fullCost}</span>
+      <span data-out-full-cost class="font-nums text-ledger">0</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { fromGross, fromNet, fromFullCost, type Direction } from '../../scripts/ish-haqi';
+
+  const numberFormat = new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 0 });
+  const fmt = (n: number) => (Number.isFinite(n) ? `${numberFormat.format(Math.round(n))} сум` : '— (TODO_RATE)');
+
+  document.querySelectorAll<HTMLElement>('[data-ishhaqi-calc]').forEach((root) => {
+    const rates = JSON.parse(root.dataset.rates ?? '{}');
+    const amountInput = root.querySelector<HTMLInputElement>('[data-field="amount"]')!;
+    const directionSelect = root.querySelector<HTMLSelectElement>('[data-field="direction"]')!;
+
+    function recalc() {
+      const amount = Number(amountInput.value) || 0;
+      const direction = directionSelect.value as Direction;
+
+      const result =
+        direction === 'net' ? fromNet(amount, rates) : direction === 'gross' ? fromGross(amount, rates) : fromFullCost(amount, rates);
+
+      root.querySelector('[data-out-net]')!.textContent = fmt(result.net);
+      root.querySelector('[data-out-income-tax]')!.textContent = fmt(result.incomeTax);
+      root.querySelector('[data-out-inps]')!.textContent = fmt(result.inps);
+      root.querySelector('[data-out-gross]')!.textContent = fmt(result.gross);
+      root.querySelector('[data-out-social-tax]')!.textContent = fmt(result.socialTax);
+      root.querySelector('[data-out-full-cost]')!.textContent = fmt(result.fullCost);
+    }
+
+    root.addEventListener('input', recalc);
+    recalc();
+  });
+</script>

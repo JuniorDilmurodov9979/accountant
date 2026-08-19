@@ -1,0 +1,12 @@
+{
+  "order": 1,
+  "question": {
+    "ru": "Работаете ли вы удалённо или нужно присутствие в офисе?",
+    "uz": "Masofadan ishlaysizmi yoki ofisda hozir bo'lish kerakmi?"
+  },
+  "answer": {
+    "ru": "TODO_FAQ",
+    "uz": "TODO_FAQ"
+  },
+  "isTodo": true
+}
