@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { getLangFromUrl, useTranslations, localizePath } from '../i18n';
+import { company } from '../data/company';
 import StickyContact from '../components/StickyContact.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
@@ -10,15 +11,20 @@ interface Props {
   title: string;
   description: string;
   path: string; // path without locale prefix, e.g. "/" or "/kalkulyator/tannarx"
+  ogTitle?: string;
+  ogDescription?: string;
+  noindex?: boolean;
 }
 
-const { title, description, path } = Astro.props;
+const { title, description, path, ogTitle, ogDescription, noindex = false } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const ruPath = localizePath(path, 'ru');
 const uzPath = localizePath(path, 'uz');
 const canonical = new URL(localizePath(path, lang), Astro.site);
+const otherLocale = lang === 'ru' ? 'uz_UZ' : 'ru_RU';
+const ogImage = lang === 'ru' ? '/og-ru.png' : '/og-uz.png';
 ---
 
 <!doctype html>
@@ -30,6 +36,7 @@ const canonical = new URL(localizePath(path, lang), Astro.site);
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="ru" href={new URL(ruPath, Astro.site)} />
@@ -37,11 +44,14 @@ const canonical = new URL(localizePath(path, lang), Astro.site);
     <link rel="alternate" hreflang="x-default" href={new URL(ruPath, Astro.site)} />
 
     <meta property="og:type" content="website" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <!-- TODO_OG: /og-ru.jpg va /og-uz.jpg (1200x630) qo'yilgach shu qatorni yangilang -->
-    <meta property="og:image" content={new URL('/og-placeholder.svg', Astro.site)} />
+    <meta property="og:title" content={ogTitle ?? title} />
+    <meta property="og:description" content={ogDescription ?? description} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content={canonical} />
     <meta property="og:locale" content={lang === 'ru' ? 'ru_RU' : 'uz_UZ'} />
+    <meta property="og:locale:alternate" content={otherLocale} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -55,23 +65,16 @@ const canonical = new URL(localizePath(path, lang), Astro.site);
       is:inline
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
-        '@type': 'Person',
-        name: t.about.name,
-        jobTitle: t.about.role,
+        '@type': 'AccountingService',
+        name: company.brandName,
+        legalName: company.legalName,
+        taxID: company.inn,
+        telephone: company.phone,
         address: {
           '@type': 'PostalAddress',
-          addressLocality: 'Навои',
+          addressLocality: company.city.ru,
           addressCountry: 'UZ',
         },
-      })}
-    />
-    <script
-      type="application/ld+json"
-      is:inline
-      set:html={JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'AccountingService',
-        name: t.about.name,
         areaServed: 'Навоийская область, Узбекистан',
         priceRange: '$$',
       })}

@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { site } from '../data/site';
+import { company } from '../data/company';
 import LeadForm from './LeadForm.astro';
 import type { Locale } from '../i18n';
 
@@ -19,11 +19,11 @@ const serviceOptions = services.map((s) => s.data.title[lang]);
     <p class="text-center text-muted mb-10">{t.contact.subtitle}</p>
 
     <div class="grid sm:grid-cols-2 gap-4 mb-10">
-      <a href={site.phoneHref} class="rule px-5 py-4 text-center font-nums text-lg hover:border-ink">
-        {site.phone}
+      <a href={company.phoneHref} class="rule px-5 py-4 text-center font-nums text-lg hover:border-ink">
+        {company.phone}
       </a>
       <a
-        href={site.telegramHref}
+        href={company.telegramHref}
         class="rule px-5 py-4 text-center font-medium bg-ledger text-paper hover:opacity-90"
       >
         {t.contact.telegram}

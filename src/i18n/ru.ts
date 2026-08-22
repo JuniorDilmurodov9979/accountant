@@ -125,6 +125,7 @@ export default {
   },
   footer: {
     disclaimer: 'Расчёт носит справочный характер и не заменяет консультацию.',
+    innLabel: 'СТИР',
   },
   calcCommon: {
     getPdf: 'Получить результат в PDF',

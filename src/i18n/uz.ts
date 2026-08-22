@@ -125,6 +125,7 @@ export default {
   },
   footer: {
     disclaimer: "Hisob-kitob ma'lumot xarakteriga ega va konsultatsiyani almashtirmaydi.",
+    innLabel: 'STIR',
   },
   calcCommon: {
     getPdf: 'Natijani PDF ko\'rinishida olish',

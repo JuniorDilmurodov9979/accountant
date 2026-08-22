@@ -5,8 +5,8 @@
     "uz": "Siz yolg'iz ishlaysizmi yoki jamoa bormi?"
   },
   "answer": {
-    "ru": "TODO_FAQ",
-    "uz": "TODO_FAQ"
+    "ru": "Команда из 4 специалистов. Ежедневный учёт ведут закреплённые бухгалтеры, финальную проверку отчётности перед сдачей делает основатель.",
+    "uz": "4 mutaxassisdan iborat jamoa. Kundalik hisobni biriktirilgan buxgalterlar yuritadi, hisobotni topshirishdan oldin yakuniy tekshiruvni asoschi amalga oshiradi."
   },
-  "isTodo": true
+  "isTodo": false
 }

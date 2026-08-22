@@ -5,8 +5,8 @@
     "uz": "Soliq qo'shimcha to'lov belgilasa, kim javobgar bo'ladi?"
   },
   "answer": {
-    "ru": "TODO_FAQ",
-    "uz": "TODO_FAQ"
+    "ru": "Ответственность зафиксирована в договоре: если доначисление произошло по нашей ошибке, его оплачивает компания. Мы работаем как юридическое лицо.",
+    "uz": "Mas'uliyat shartnomada qayd etilgan: agar qo'shimcha to'lov bizning xatoimiz tufayli yuzaga kelsa, uni kompaniya to'laydi. Biz yuridik shaxs sifatida ishlaymiz."
   },
-  "isTodo": true
+  "isTodo": false
 }
